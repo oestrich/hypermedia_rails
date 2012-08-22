@@ -10,6 +10,7 @@ group :assets do
 end
 
 gem "active_model_serializers", :git => "git://github.com/josevalim/active_model_serializers.git"
+gem 'devise'
 gem 'jquery-rails'
 gem 'pg'
 gem 'raddocs'
