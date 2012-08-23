@@ -14,4 +14,9 @@ class OrdersController < ApplicationController
     order = current_user.orders.find(params[:id])
     respond_with order
   end
+
+  def create
+    order = current_user.orders.create(params[:order])
+    respond_with order
+  end
 end

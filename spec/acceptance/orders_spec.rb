@@ -112,4 +112,28 @@ resource "Orders" do
       response_headers["Content-Type"].should == "application/hal+json; charset=utf-8"
     end
   end
+
+  post "/orders" do
+    parameter :total_cents, "Total cents for this order"
+
+    let(:total_cents) { 3000 }
+
+    let(:raw_post) { { :order => { :total_cents => total_cents }, :auth_token => auth_token }.to_json }
+
+    example "Creating a new order" do
+      do_request
+
+      response_body.should be_json_eql({
+        :date => Date.today,
+        :total_cents => total_cents,
+        :status => "pending",
+      }.to_json).excluding("_links")
+
+      response_body.should have_json_path("_links/self/href")
+
+      status.should == 201
+
+      response_headers["Content-Type"].should == "application/hal+json; charset=utf-8"
+    end
+  end
 end
