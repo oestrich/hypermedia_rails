@@ -38,3 +38,7 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 end
+
+RspecApiDocumentation.configure do |config|
+  config.format = [:json, :combined_text]
+end
