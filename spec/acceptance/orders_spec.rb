@@ -136,4 +136,25 @@ resource "Orders" do
       response_headers["Content-Type"].should == "application/hal+json; charset=utf-8"
     end
   end
+
+  put "/orders/:id" do
+    parameter :status, "Update status of order"
+
+    let(:order) { create(:order, :user => user) }
+    let(:id) { order.id }
+
+    let(:status) { "charged" }
+
+    let(:raw_post) { { :order => { :status => status }, :auth_token => auth_token }.to_json }
+
+    example "Updating an order" do
+      do_request
+
+      response_body.should == ""
+
+      response_status.should == 204
+
+      order.reload.status.should == "charged"
+    end
+  end
 end

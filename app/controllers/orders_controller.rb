@@ -19,4 +19,11 @@ class OrdersController < ApplicationController
     order = current_user.orders.create(params[:order])
     respond_with order
   end
+
+  def update
+    order = current_user.orders.find(params[:id])
+    order.status = params[:order][:status] if params[:order][:status]
+    order.save
+    respond_with order
+  end
 end
