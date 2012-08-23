@@ -83,4 +83,24 @@ resource "Orders" do
       status.should == 200
     end
   end
+
+  get "/orders/:id" do
+    let(:order) { create(:order, :user => user) }
+    let(:id) { order.id }
+
+    example "Viewing an order" do
+      do_request
+
+      response_body.should be_json_eql({
+        :date => order.date,
+        :total_cents => 5000,
+        :status => "charged",
+        :_links => {
+          :self => { :href => "/orders/#{id}" }
+        },
+      }.to_json)
+
+      status.should == 200
+    end
+  end
 end

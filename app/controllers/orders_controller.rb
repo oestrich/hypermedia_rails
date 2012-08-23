@@ -9,4 +9,9 @@ class OrdersController < ApplicationController
     orders = current_user.orders.date_descending
     respond_with apply_scopes(orders), :serializer => OrdersSerializer, :date => params[:date]
   end
+
+  def show
+    order = current_user.orders.find(params[:id])
+    respond_with order
+  end
 end
