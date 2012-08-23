@@ -26,4 +26,10 @@ class OrdersController < ApplicationController
     order.save
     respond_with order
   end
+
+  def destroy
+    order = current_user.orders.find(params[:id])
+    order.destroy
+    respond_with order
+  end
 end

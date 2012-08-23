@@ -157,4 +157,21 @@ resource "Orders" do
       order.reload.status.should == "charged"
     end
   end
+
+  delete "/orders/:id" do
+    let(:order) { create(:order, :user => user) }
+    let(:id) { order.id }
+
+    let(:raw_post) { params.to_json }
+
+    example "Deleting an order" do
+      do_request
+
+      response_body.should == ""
+
+      status.should == 204
+
+      Order.where(:id => order.id).should be_empty
+    end
+  end
 end
