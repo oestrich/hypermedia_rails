@@ -3,7 +3,10 @@ class OrdersController < ApplicationController
 
   respond_to :json
 
+  has_scope :date
+
   def index
-    respond_with current_user.orders.date_descending, :serializer => OrdersSerializer
+    orders = current_user.orders.date_descending
+    respond_with apply_scopes(orders), :serializer => OrdersSerializer, :date => params[:date]
   end
 end

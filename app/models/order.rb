@@ -4,4 +4,8 @@ class Order < ActiveRecord::Base
   def self.date_descending
     order("date DESC")
   end
+
+  def self.date(date)
+    where(:date => date)
+  end
 end

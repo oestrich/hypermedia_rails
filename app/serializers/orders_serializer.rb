@@ -5,9 +5,14 @@ class OrdersSerializer < ActiveModel::ArraySerializer
     hash = super(*args)
 
     hash["_links"] = {
-      :self => { :href => orders_path },
-      :find => { :href => "#{orders_path}{?date}", :templated => true }
+      "self" => { :href => orders_path },
+      "find" => { :href => "#{orders_path}{?date}", :templated => true }
     }
+
+    if @options[:date]
+      hash["_links"]["all"] = hash["_links"]["self"]
+      hash["_links"]["self"] = { :href => "#{orders_path}?date=#{@options[:date]}" }
+    end
 
     hash["_embedded"] = { :orders => hash["orders"] }
     hash.delete("orders")

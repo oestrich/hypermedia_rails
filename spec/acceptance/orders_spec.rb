@@ -10,16 +10,18 @@ resource "Orders" do
   let(:auth_token) { user.authentication_token }
 
   get "/orders" do
+    parameter :date, "Search by date"
+
     let!(:order_1) do
       create(:order, {
-        :date => Date.yesterday,
+        :date => "2012-08-20",
         :total_cents => 4000,
         :status => "shipped",
         :user => user
       })
     end
 
-    let!(:order_2) { create(:order, :user => user) }
+    let!(:order_2) { create(:order, :date => "2012-08-21", :user => user) }
     let!(:order_3) { create(:order) }
 
     example "Listing orders" do
@@ -29,7 +31,7 @@ resource "Orders" do
         :_embedded => {
           :orders => [
             {
-              :date => Date.today,
+              :date => "2012-08-21",
               :total_cents => 5000,
               :status => "charged",
               :_links => {
@@ -37,7 +39,7 @@ resource "Orders" do
               }
             },
             {
-              :date => Date.yesterday,
+              :date => "2012-08-20",
               :total_cents => 4000,
               :status => "shipped",
               :_links => {
@@ -48,6 +50,32 @@ resource "Orders" do
         },
         :_links => {
           :self => { :href => "/orders" },
+          :find => { :href => "/orders{?date}", :templated => true }
+        }
+      }.to_json)
+
+      status.should == 200
+    end
+
+    example "Listing orders - searching by date" do
+      do_request(:date => "2012-08-20")
+
+      response_body.should be_json_eql({
+        :_embedded => {
+          :orders => [
+            {
+              :date => "2012-08-20",
+              :total_cents => 4000,
+              :status => "shipped",
+              :_links => {
+                :self => { :href => "/orders/#{order_1.id}" }
+              }
+            }
+          ],
+        },
+        :_links => {
+          :self => { :href => "/orders?date=2012-08-20" },
+          :all  => { :href => "/orders" },
           :find => { :href => "/orders{?date}", :templated => true }
         }
       }.to_json)
