@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_filter :authenticate_user!
 
-  respond_to :json
+  respond_to :hal
 
   has_scope :date
 

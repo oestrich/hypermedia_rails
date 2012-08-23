@@ -2,7 +2,8 @@ require 'spec_helper'
 require 'rspec_api_documentation/dsl'
 
 resource "Orders" do
-  header "Accept", "application/json"
+  header "Accept", "application/hal+json"
+  header "Content-Type", "application/hal+json"
 
   parameter :auth_token, "Authentication token"
 
@@ -23,6 +24,8 @@ resource "Orders" do
 
     let!(:order_2) { create(:order, :date => "2012-08-21", :user => user) }
     let!(:order_3) { create(:order) }
+
+    let(:raw_post) { params.to_json }
 
     example "Listing orders" do
       do_request
@@ -55,6 +58,8 @@ resource "Orders" do
       }.to_json)
 
       status.should == 200
+
+      response_headers["Content-Type"].should == "application/hal+json; charset=utf-8"
     end
 
     example "Listing orders - searching by date" do
@@ -81,6 +86,8 @@ resource "Orders" do
       }.to_json)
 
       status.should == 200
+
+      response_headers["Content-Type"].should == "application/hal+json; charset=utf-8"
     end
   end
 
@@ -101,6 +108,8 @@ resource "Orders" do
       }.to_json)
 
       status.should == 200
+
+      response_headers["Content-Type"].should == "application/hal+json; charset=utf-8"
     end
   end
 end

@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  respond_to :json
+  respond_to :hal
 
   def index
     root_representation = {
