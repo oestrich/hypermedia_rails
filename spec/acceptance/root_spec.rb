@@ -21,6 +21,7 @@ resource "Root" do
                 :id => { :type => "integer" },
                 :status => { :type => "string" },
                 :total_cents => { :type => "integer" },
+                :date => { :type => "date" },
                 :created_at => { :type => "datetime" },
                 :updated_at => { :type => "datetime" }
               }
