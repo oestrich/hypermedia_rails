@@ -5,6 +5,21 @@ class HomeController < ApplicationController
     root_representation = {
       :_links => {
         :orders => { :href => orders_path }
+      },
+      :_embedded => {
+        :schema => {
+          :order => {
+            :description => "An order",
+            :type => "object",
+            :properties => {
+              :id => { :type => "integer" },
+              :status => { :type => "string" },
+              :total_cents => { :type => "integer" },
+              :created_at => { :type => "datetime" },
+              :updated_at => { :type => "datetime" }
+            }
+          }
+        }
       }
     }
 

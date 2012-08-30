@@ -11,6 +11,21 @@ resource "Root" do
       response_body.should be_json_eql({
         :_links => {
           :orders => { :href => "/orders" }
+        },
+        :_embedded => {
+          :schema => {
+            :order => {
+              :description => "An order",
+              :type => "object",
+              :properties => {
+                :id => { :type => "integer" },
+                :status => { :type => "string" },
+                :total_cents => { :type => "integer" },
+                :created_at => { :type => "datetime" },
+                :updated_at => { :type => "datetime" }
+              }
+            }
+          }
         }
       }.to_json)
 
