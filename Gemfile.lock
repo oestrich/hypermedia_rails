@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/josevalim/active_model_serializers.git
-  revision: 655c4fe1c2985d980d0dafb49eef3706412c1ed8
+  revision: 001c1d06347832c0445c0daa22d4b6bf0dd8e0f9
   specs:
     active_model_serializers (0.5.0)
       activemodel (~> 3.0)
@@ -47,7 +47,7 @@ GEM
     activesupport (3.2.8)
       i18n (~> 0.6)
       multi_json (~> 1.0)
-    addressable (2.3.2)
+    addressable (2.2.8)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
@@ -73,6 +73,16 @@ GEM
     factory_girl_rails (4.0.0)
       factory_girl (~> 4.0.0)
       railties (>= 3.0.0)
+    faraday (0.8.4)
+      multipart-post (~> 1.1)
+    faraday_middleware (0.8.8)
+      faraday (>= 0.7.4, < 0.9)
+    frenetic (0.0.3)
+      addressable (~> 2.2.8)
+      faraday (~> 0.8.1)
+      faraday_middleware (~> 0.8.7)
+      patron (~> 0.4.18)
+      rack-cache (~> 1.1)
     haml (3.1.7)
     has_scope (0.5.1)
     hike (1.2.1)
@@ -91,8 +101,10 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.19)
     multi_json (1.3.6)
+    multipart-post (1.1.5)
     mustache (0.99.4)
     orm_adapter (0.4.0)
+    patron (0.4.18)
     pg (0.14.0)
     polyglot (0.3.3)
     rack (1.4.1)
@@ -104,7 +116,7 @@ GEM
       rack
     rack-test (0.6.1)
       rack (>= 1.0)
-    raddocs (0.1.2)
+    raddocs (0.1.3)
       haml
       json
       sinatra
@@ -175,6 +187,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise
   factory_girl_rails
+  frenetic
   has_scope
   jquery-rails
   json_spec

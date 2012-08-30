@@ -16,6 +16,10 @@ gem 'jquery-rails'
 gem 'pg'
 gem 'raddocs'
 
+group :development do
+  gem 'frenetic'
+end
+
 group :test, :development do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
