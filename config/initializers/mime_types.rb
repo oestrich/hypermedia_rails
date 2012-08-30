@@ -8,5 +8,5 @@ Mime::Type.register "application/hal+json", :hal
 
 ActionDispatch::ParamsParser::DEFAULT_PARSERS[Mime::Type.lookup('application/hal+json')] = 
   lambda do |body|
-    JSON.parse(body)
+    JSON.parse("[#{body}]").first
   end

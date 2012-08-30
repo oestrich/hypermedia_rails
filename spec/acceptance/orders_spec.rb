@@ -4,11 +4,12 @@ require 'rspec_api_documentation/dsl'
 resource "Orders" do
   header "Accept", "application/hal+json"
   header "Content-Type", "application/hal+json"
-
-  parameter :auth_token, "Authentication token"
+  header "Authorization", :basic_authorization
 
   let(:user) { create(:user) }
   let(:auth_token) { user.authentication_token }
+
+  let(:basic_authorization) { "Basic " + Base64.encode64("#{auth_token}:#{auth_token}") }
 
   get "/orders" do
     parameter :date, "Search by date"
@@ -24,8 +25,6 @@ resource "Orders" do
 
     let!(:order_2) { create(:order, :date => "2012-08-21", :user => user) }
     let!(:order_3) { create(:order) }
-
-    let(:raw_post) { params.to_json }
 
     example "Listing orders" do
       do_request
@@ -118,7 +117,7 @@ resource "Orders" do
 
     let(:total_cents) { 3000 }
 
-    let(:raw_post) { { :order => { :total_cents => total_cents }, :auth_token => auth_token }.to_json }
+    let(:raw_post) { { :order => { :total_cents => total_cents } }.to_json }
 
     example "Creating a new order" do
       do_request
@@ -145,7 +144,7 @@ resource "Orders" do
 
     let(:status) { "charged" }
 
-    let(:raw_post) { { :order => { :status => status }, :auth_token => auth_token }.to_json }
+    let(:raw_post) { { :order => { :status => status } }.to_json }
 
     example "Updating an order" do
       do_request

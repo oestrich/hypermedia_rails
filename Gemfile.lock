@@ -5,6 +5,18 @@ GIT
     active_model_serializers (0.5.0)
       activemodel (~> 3.0)
 
+GIT
+  remote: git@github.com:zipmark/rspec_api_documentation
+  revision: 4c76c40d61fde428bd012b3e559f6212b6d9e76b
+  specs:
+    rspec_api_documentation (0.8.0)
+      activesupport (>= 3.0.0)
+      i18n (>= 0.1.0)
+      json (>= 1.4.6)
+      mustache (>= 0.99.4)
+      rspec (>= 2.6.0)
+      webmock (>= 1.7.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -127,13 +139,6 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.11.0)
-    rspec_api_documentation (0.8.0)
-      activesupport (>= 3.0.0)
-      i18n (>= 0.1.0)
-      json (>= 1.4.6)
-      mustache (>= 0.99.4)
-      rspec (>= 2.6.0)
-      webmock (>= 1.7.0)
     sass (3.2.1)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -177,6 +182,6 @@ DEPENDENCIES
   raddocs
   rails (= 3.2.8)
   rspec-rails
-  rspec_api_documentation
+  rspec_api_documentation!
   sass-rails (~> 3.2.3)
   uglifier (>= 1.0.3)

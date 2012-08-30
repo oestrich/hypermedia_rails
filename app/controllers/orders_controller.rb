@@ -1,5 +1,10 @@
 class OrdersController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter do
+    authenticate_or_request_with_http_basic do |auth_token, _|
+      @current_user = User.find_by_authentication_token(auth_token)
+      @current_user.present?
+    end
+  end
 
   respond_to :hal
 
@@ -7,7 +12,8 @@ class OrdersController < ApplicationController
 
   def index
     orders = current_user.orders.date_descending
-    respond_with apply_scopes(orders), :serializer => OrdersSerializer, :date => params[:date]
+    respond_with apply_scopes(orders),
+      :serializer => OrdersSerializer, :date => params[:date]
   end
 
   def show

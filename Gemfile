@@ -19,7 +19,7 @@ gem 'raddocs'
 group :test, :development do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
-  gem 'rspec_api_documentation'
+  gem 'rspec_api_documentation', :git => "git@github.com:zipmark/rspec_api_documentation"
 end
 
 group :test do
