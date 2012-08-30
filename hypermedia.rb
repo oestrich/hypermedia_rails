@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 
+require 'bundler'
+Bundler.setup
+
 require 'frenetic'
+
 MyAPI = Frenetic.new({
   'url'          => 'http://hypermedia.dev',
   'username'     => 'qxpRbQpqAw3YugKUpErW',
