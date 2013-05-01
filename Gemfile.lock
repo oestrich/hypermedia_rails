@@ -1,10 +1,9 @@
 GIT
   remote: git://github.com/rails-api/active_model_serializers.git
-  revision: 001c1d06347832c0445c0daa22d4b6bf0dd8e0f9
-  ref: 001c1d06347832c0445c0daa22d4b6bf0dd8e0f9
+  revision: 329a38a7ddee4350f96d657256a5f6a277865291
   specs:
-    active_model_serializers (0.5.0)
-      activemodel (~> 3.0)
+    active_model_serializers (0.7.0)
+      activemodel (>= 3.0)
 
 GIT
   remote: git@github.com:zipmark/rspec_api_documentation

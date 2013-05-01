@@ -8,4 +8,10 @@ class OrderSerializer < ActiveModel::Serializer
       :self => { :href => order_path(order.id) }
     }
   end
+
+  private
+
+  def order
+    @object
+  end
 end
