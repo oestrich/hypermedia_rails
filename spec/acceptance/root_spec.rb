@@ -10,7 +10,7 @@ resource "Root" do
 
       response_body.should be_json_eql({
         :_links => {
-          :orders => { :href => "/orders" }
+          "http://example.com/rels/orders" => { :href => "/orders" }
         },
         :_embedded => {
           :schema => {
