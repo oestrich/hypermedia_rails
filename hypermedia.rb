@@ -1,27 +1,41 @@
 #!/usr/bin/env ruby
 
-require 'bundler'
-Bundler.setup
+require File.expand_path('../config/environment',  __FILE__)
+require 'capybara/server'
 
-require 'frenetic'
+Capybara.server do |app, port|
+  require 'rack/handler/thin'
+  Thin::Logging.silent = true
+  Rack::Handler::Thin.run(app, :Port => port)
+end
 
-MyAPI = Frenetic.new({
-  'url'          => 'http://hypermedia.dev',
-  'username'     => 'qxpRbQpqAw3YugKUpErW',
-  'password'     => 'qxpRbQpqAw3YugKUpErW',
-  'headers' => {
-    'accept' => 'application/hal+json'
-  }
+server = Capybara::Server.new(Rails.application, 8888)
+server.boot
+
+puts "Server booted"
+
+user = User.create({
+  :email => "user-#{SecureRandom.hex(10)}@example.com",
+  :password => "password",
+  :password_confirmation => "password"
 })
 
-class Order < Frenetic::Resource
-  api_client { MyAPI }
+user.orders.create(:total_cents => 1000)
 
-  def self.orders
-    api.get(api.description.links.orders.href).body.resources.orders.map do |order|
-      new(order)
-    end
+class Middleware < Faraday::Middleware
+  def call(env)
+    env[:request_headers]["Accept"] = "application/hal+json"
+
+    @app.call(env)
   end
 end
 
-p Order.orders
+client = Faraday.new("http://localhost:8888") do |conn|
+  conn.use Middleware
+  conn.adapter Faraday.default_adapter
+end
+
+client.basic_auth(user.authentication_token, "")
+root = JSON.parse(client.get("/").body)
+orders_link = root["_links"]["http://example.com/rels/orders"]["href"]
+puts JSON.pretty_generate(JSON.parse(client.get(orders_link).body))

@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   def index
     root_representation = {
       :_links => {
-        :orders => { :href => orders_path }
+        "http://example.com/rels/orders" => { :href => orders_path }
       },
       :_embedded => {
         :schema => {

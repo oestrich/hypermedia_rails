@@ -26,7 +26,7 @@ You should see all the tests pass.
 
 ## Hypermedia client
 
-A basic example of a hypermedia client is included via Frenetic. Make sure to set up a user with the correct auth token.
+A basic example of using hypermedia is included via Faraday. The script will boot up it's own server, create a user and order, and finally show the order. You should be able to change the orders url and the script will continue to work, providing its using hypermedia.
 
 To try it, just
 

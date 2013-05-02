@@ -17,7 +17,9 @@ gem 'pg'
 gem 'raddocs'
 
 group :development do
-  gem 'frenetic'
+  gem 'capybara'
+  gem 'faraday'
+  gem 'thin'
 end
 
 group :test, :development do
